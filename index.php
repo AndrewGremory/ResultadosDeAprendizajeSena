@@ -6,7 +6,7 @@
     } else {
       if (!empty($_POST)) {
         if (empty($_POST['usuario']) || empty($_POST['clave'])) {
-          $alert = '<div class="alert alert-danger" role="alert">
+          $alert = '<div class="alert alert-light" role="alert">
       Ingrese su usuario y su clave
     </div>';
         } else {
@@ -30,13 +30,14 @@
             $_SESSION['active'] = true;
             $_SESSION['idUser'] = $dato['id_usuario'];
             $_SESSION['nombre'] = $dato['nombre'];
+            $_SESSION['apellido'] = $dato['apellido'];
             $_SESSION['email'] = $dato['correo'];
             $_SESSION['user'] = $dato['usuario'];
             $_SESSION['clave'] = $dato['pw'];
             $_SESSION['rol_name'] = $dato['rol'];
             header('location: sistema/');
           } else {
-            $alert = '<div class="alert alert-danger" role="alert">
+            $alert = '<div class="alert alert-light" role="alert">
             
                   Usuario o Contraseña Incorrecta 
                 </div>'; 

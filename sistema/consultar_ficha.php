@@ -2,15 +2,21 @@
 
     <div id="layoutSidenav_content">
         <main class="container">
-        <h1 class="mt-4">Consultar ficha</h1>
         <br>
+        <input type="button" class="btn btn-outline-dark" onclick="history.back()" name="volver atrás" value="volver">
+        <hr>
+        <h1 class="mt-1">Consultar ficha</h1>
         <div class="col-lg">
         <?php 
-            if ($_SESSION['rol_name'] == 'administrador' ){
+            if ($_SESSION['rol_name'] == 'administrador'){
             ?>
             <button id="btnNuevaFicha" type="button" class="btn btn-success" data-toggle="modal" >Nuevo</button>
                 <?php
-                    } else{?> 
+                }else if ($_SESSION['rol_name'] == 'coordinador'){
+                    ?>
+                    <button id="btnNuevaFicha" type="button" class="btn btn-success" data-toggle="modal" >Nuevo</button>
+
+                    <?php } else{?> 
             <button id="btnNuevaFicha" type="button" disabled class="btn btn-success" data-toggle="modal" >Nuevo</button>
                     <?php }?>
             <!-- <button id="btnNuevaFicha" type="button" class="btn btn-success" data-toggle="modal" >Nuevo</button> -->
@@ -31,6 +37,8 @@
                             <th>Editar</th>
                             <?php
                                 } else{?>
+                                <th>Administrar</th>
+
 
                             <?php }?>
 
@@ -49,6 +57,7 @@
                             <th>Editar</th>
                             <?php
                                 } else{?>
+                                <th>Administrar</th>
 
                             <?php }?>
 

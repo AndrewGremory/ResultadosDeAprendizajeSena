@@ -21,7 +21,10 @@ $(document).ready(function() {
             }
     
         });  
+    });  
 
+
+// TABLA USUARIOS
 $(document).ready(function() {
 
     var id_usuario, opcion;
@@ -74,9 +77,6 @@ $(document).ready(function() {
                     {"data": "id_usuario"},
                     {"data": "nombre"},
                     {"data": "apellido"},
-                    {"data": "usuario"},
-                    {"data": "pw"},
-                    {"data": "rol"},
                     {"data": "correo"},
                     {"data": "telefono"}
                         
@@ -221,7 +221,12 @@ $(document).ready(function() {
                 {"data": "id_ficha"},
                 {"data": "tipo_programa"},
                 {"data": "pro_nombre"},
-                {"data": "lider"}
+                {"data": "lider"},
+                {"defaultContent": `<div class='text-center'>
+                    <div class='btn-group'>
+                        <button class='btn btn-success btnAdministrar'>Administrar</button>
+                        </div>
+                    </div>`}
             ],"language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json" 
             }
@@ -240,19 +245,19 @@ $(document).ready(function() {
         tipo_programa = $.trim($('#tipo_programa').val());                         
         pro_nombre = $.trim($('#nombre_programa').val());                         
         lider_ficha = $.trim($('#lider_ficha').val());   
-        cambiarLiderFicha = $.trim($('#cambiarLiderFicha').val());   
 
     
             $.ajax({
               url: "../bd/crud.php",
               type: "POST",
               datatype:"json",    
-              data:  {id_ficha:id_ficha, tipo_programa:tipo_programa, pro_nombre:pro_nombre, lider_ficha:lider_ficha, cambiarLiderFicha:cambiarLiderFicha, opcion:opcion},    
+              data:  {id_ficha:id_ficha, tipo_programa:tipo_programa, pro_nombre:pro_nombre, lider_ficha:lider_ficha, opcion:opcion},    
               success: function(data) {
                 tablaFichas.ajax.reload(null, false);
                }
             });			        
         $('#modalCrudFicha').modal('hide');	
+        
 										     			
     });
             
@@ -288,10 +293,8 @@ $(document).ready(function() {
         // let lider_ficha = parseInt($('#lider_ficha').val());
         
         $("#id_ficha").val(id_ficha);
-        $("#cambiarLiderFicha").val(lider_ficha);
-        
-        
-        
+        $("#lider_ficha").val(lider_ficha);
+
         $(".modal-header").css("background-color", "#343a40");
         $(".modal-header").css("color", "white" );
         $(".modal-title").text("Editar Ficha: "+id_ficha);		
@@ -324,6 +327,8 @@ $(document).ready(function() {
             });	
         }
      });
+    
+
 
      
     $(document).on("click", ".btnAdministrar", function(){
@@ -331,6 +336,11 @@ $(document).ready(function() {
         fila = $(this).closest("tr");	        
         ficha_consulta = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		
         programa_consulta = fila.find('td:eq(2)').text();
+        
+
+
+
+        // $('#botonAdministrar').attr('disabled',false);
 
 
             // $.ajax({
@@ -402,10 +412,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
     // TABLA SEGUIMIENTO 
     
 
@@ -439,42 +445,73 @@ $(document).ready(function() {
             {"data": "tipo_resultado"},
             {"data": "fecha_inicio"},
             {"data": "fecha_fin"},
-            {"data": "estado"},
+            {data: "estado",
+            render:function(data, type, row){
+           
+                if (type === 'display'){
+                    let color = 'green';
+                    if (data == "Pendiente"){
+                        
+                        color = 'red';
+                    }else if (data == "En ejecución"){
+                        background = 'black',
+                        color = 'orange';
+                    }
+                    return '<span style="color:' + color+';">' + data + '</span>';
+                }
+                return data;
+            },
+            },
             {"data": "observacion"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-success btnEditarFichaSeguimiento'><i class='fas fa-edit'></i></button> <button class='btn btn-danger btnBorrarFichaSeguimiento'><i class='fas fa-trash'></i></button></div></div>"}
-            
-        ]
-         ,       
+            {"defaultContent": `<div class='text-center'>
+                <div class='btn-group'>
+                    <button class='btn btn-success btnEditarFichaSeguimiento'><i class='fas fa-edit'></i></button> 
+                    <button class='btn btn-danger btnBorrarFichaSeguimiento'><i class='fas fa-trash'></i></button>
+                    </div>
+                </div>`},
+        
+        ],       
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json" 
         },
+        dom: 'Bfrtip',
+        buttons: [
+            // {
+            //     extend: 'excelHtml5',
+            //     text: '<i class="fas fa-file-excel"></i>',
+            //     titleAttr: 'Exportar a excel',
+            //     className: 'btn btn-success'
+            // }
+            'csv', 'excel', 'pdf', 'print'
+        ]
+        // ,
 
 
-        "createdRow":function(row,data,data ){
-            if (data[6] == "Evaluado"){
-                // $(row).addClass( 'important');
-                $('td', row).eq(6).css({
-                    'background-color':'#008000', //verde
-                    'color':'white',
-                })
+        // "createdRow":function(row,data,index){
+        //     if (data[6] == "Evaluado"){
+        //         // $(row).addClass( 'important');
+        //         $('td', row).eq(6).css({
+        //             'background-color':'#008000', //verde
+        //             'color':'white',
+        //         })
                 
-            }
+        //     }
             
-            if (data[6] == "Pendiente"){
-                // $(row).addClass( 'important');
-                $('td', row).eq(6).css({
-                    'background-color':'#FF3333',  //rojo
-                    'color':'white',
-                })
-            }
-            if (data[6] == "En ejecución"){
-                // $(row).addClass( 'important');
-                $('td', row).eq(6).css({
-                    'background-color':'#FFAC33', //amarillo
-                    'color':'white',
-                })
-                }
-            }
+        //     if (data[6] == "Pendiente"){
+        //         // $(row).addClass( 'important');
+        //         $('td', row).eq(6).css({
+        //             'background-color':'#FF3333',  //rojo
+        //             'color':'white',
+        //         })
+        //     }
+        //     if (data[6] == "En ejecución"){
+        //         // $(row).addClass( 'important');
+        //         $('td', row).eq(6).css({
+        //             'background-color':'#FFAC33', //amarillo
+        //             'color':'white',
+        //         })
+        //         }
+        //     }
         });
 
         var fila; //captura la fila, para editar o eliminar
@@ -514,9 +551,6 @@ $(document).ready(function() {
         resultado = fila.find('td:eq(2)').text();
         tipo_resultado = fila.find('td:eq(3)').text();
         fecha_inicio = fila.find('td:eq(4)').text();
-        if (fecha_inicio == null){
-            fecha_inicio = "null";
-        }
         fecha_fin = fila.find('td:eq(5)').text();
         estado_resultado = fila.find('td:eq(6)').text();
         observacion = fila.find('td:eq(7)').text();
@@ -532,30 +566,31 @@ $(document).ready(function() {
         $(".modal-header").css("color", "white" );
         $(".modal-title").text("Editar resultado");		
         $('#modalCrudSeguimiento').modal('show');	
-        alert(fecha_inicio);
         
     });
 
     //Borrar
     $(document).on("click", ".btnBorrarFichaSeguimiento", function(){
-        fila = $(this);           
-        rap_id = parseInt($(this).closest('tr').find('td:eq(0)').text()) ;		
-        opcion = 11; //eliminar       
-        var respuesta = confirm("¿Está seguro de borrar el registro "+rap_id+"?"); 
+        alert("No es posible eliminar un resultado");
+        // fila = $(this);           
+        // rap_id = parseInt($(this).closest('tr').find('td:eq(0)').text()) ;		
+        // opcion = 11; //eliminar       
+        // var respuesta = confirm("¿Está seguro de borrar el registro "+rap_id+"?"); 
         
 
-        if (respuesta) {            
-            $.ajax({
-              url: "../bd/crud.php",
-              type: "POST",
-              datatype:"json",    
-              data:  {opcion:opcion, rap_id:rap_id},    
-              success: function() {
-                  tablaUsuarios.row(fila.parents('tr')).remove().draw();                  
-               }
-            });	
-        }
+        // if (respuesta) {            
+        //     $.ajax({
+        //       url: "../bd/crud.php",
+        //       type: "POST",
+        //       datatype:"json",    
+        //       data:  {opcion:opcion, rap_id:rap_id},    
+        //       success: function() {
+        //           tablaUsuarios.row(fila.parents('tr')).remove().draw();                  
+        //        }
+        //     });	
+        // }
      });
 
 
-    });});
+    });
+

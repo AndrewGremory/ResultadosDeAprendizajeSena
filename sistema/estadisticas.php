@@ -4,7 +4,11 @@
 
 <div id="layoutSidenav_content">
     <div class="container-fluid">
+        <br>
+        <input type="button" class="btn btn-outline-dark" onclick="history.back()" name="volver atrás" value="volver">
         <h1 class="mt-4">Estadisticas de las fichas </h1>
+
+        <label for="progreso">Progreso ficha</label>
         <div class="card-body">
             <canvas id="Grafica" width="500" height="500"></canvas>
 

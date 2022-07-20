@@ -8,7 +8,10 @@
 </script>
 <div id="layoutSidenav_content">
     <div class="container-fluid">
-        <h1 class="mt-4">Ingrese los datos del usuario </h1>
+        <br>
+        <input type="button" class="btn btn-outline-dark" onclick="history.back()" name="volver atrás" value="volver">
+        <hr>
+        <h1 class="mt-1">Ingrese los datos del usuario </h1>
         <div class="card-body">
             <form id="agregarUsuario" role="form" method="post" action="../bd/crud.php">
                 <div class="form-row">

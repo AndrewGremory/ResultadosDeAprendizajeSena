@@ -9,7 +9,10 @@
 
 <div id="layoutSidenav_content">
     <div class="container-fluid">
-        <h1 class="mt-4">Ingrese los datos de la ficha </h1>
+        <br>
+        <input type="button" class="btn btn-outline-dark" onclick="history.back()" name="volver atrás" value="volver">
+        <hr>
+        <h1 class="mt-1">Ingrese los datos de la ficha </h1>
         <div class="card-body">
             <form id="formulario" role="form" method="post" action="../bd/crud.php">
                 <div class="form-row">
@@ -86,38 +89,38 @@
             </form>
 
             <div class="form-group">
-                    <div class="modal" tabindex="-1" id="AgregarPrograma">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    Agregar Programa
-                                    <button class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="../bd/crud.php" id="Modal" method="POST">
-                                        <div class="form-row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="small mb" for="InsertarNombre">Nombre de programa</label>
-                                                    <input class="form-control py-4" name="nombreprograma" id="nombreprograma" type="text" placeholder="Ingrese nombre de programa" />
-                                                </div>
+                <div class="modal" tabindex="-1" id="AgregarPrograma">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Agregar Programa
+                                <button class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="../bd/crud.php" id="Modal" method="POST">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="small mb" for="InsertarNombre">Nombre de programa</label>
+                                                <input class="form-control py-4" name="nombreprograma" id="nombreprograma" type="text" placeholder="Ingrese nombre de programa" />
                                             </div>
-                                            <input type="hidden" name="opcion" value="14">
-                                            <input type="submit" class="btn btn-primary btn-block" value="Guardar">
+                                        </div>
+                                        <input type="hidden" name="opcion" value="14">
+                                        <input type="submit" class="btn btn-primary btn-block" value="Guardar">
 
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
 
-                                </div>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
+            </div>
 
 
         </div>
-        
+
 
         <?php include_once "includes/footer.php"; ?>
