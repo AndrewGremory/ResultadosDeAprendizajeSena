@@ -127,7 +127,12 @@ switch($opcion){
         break;
     
     case 8: 
-        $consulta = "SELECT id_ficha, tipo_programa, pro_nombre, concat(usuarios.nombre,' ',usuarios.apellido) as lider, lider_ficha FROM fichas join programa on nombre_programa=id_programa join usuarios on id_usuario=lider_ficha";
+        $consulta = "SELECT id_ficha, tipo_programa, pro_nombre, concat(usuarios.nombre,' ',usuarios.apellido) as lider, count(estado) as totalestados, (SELECT COUNT(estado) from rap where estado = 'Evaluado') evaluados
+        FROM fichas 
+                join programa on nombre_programa=id_programa 
+                join usuarios on id_usuario=lider_ficha
+                join rap on id_ficha = rap.ficha_id
+                GROUP BY id_ficha";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

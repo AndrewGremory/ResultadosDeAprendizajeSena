@@ -185,7 +185,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     
-    var id_ficha, opcion;
+    var id_ficha, opcion, total;
     opcion = 8;
 
     if(rol=='administrador'){
@@ -202,7 +202,15 @@ $(document).ready(function() {
                 {"data": "pro_nombre"},
                 {"data": "lider"},
                 {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-success btnAdministrar'>Administrar</button></div></div>"},
-                {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-success btnEditarFicha'><i class='fas fa-edit'></i></button> <button class='btn btn-danger btnBorrarFicha'><i class='fas fa-trash'></i></button></div></div>"}
+                {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-success btnEditarFicha'><i class='fas fa-edit'></i></button> <button class='btn btn-danger btnBorrarFicha'><i class='fas fa-trash'></i></button></div></div>"},
+                {data: null,
+                render: function (data, type, row, ){
+
+                    return type === 'display'
+
+                    ?`<progress value="`+ data.evaluados + `" max="`+ data.totalestados +`"></progress>`
+                    :data;
+                }},
             ],"language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json" 
             }
@@ -226,7 +234,15 @@ $(document).ready(function() {
                     <div class='btn-group'>
                         <button class='btn btn-success btnAdministrar'>Administrar</button>
                         </div>
-                    </div>`}
+                    </div>`},
+                    {data: null,
+                        render: function (data, type, row, ){
+        
+                            return type === 'display'
+        
+                            ?`<progress value="`+ data.evaluados + `" max="`+ data.totalestados +`"></progress>`
+                            :data;
+                        }},
             ],"language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json" 
             }
@@ -417,17 +433,12 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
-
     let opcion;
-
-
     opcion = 12;
     
-        
     tablaSeguimiento = $('#tablaSeguimiento').DataTable({  
 
-        
-        
+ 
         "ajax":{            
             "url": "../bd/crud.php", 
             "method": 'POST', //usamos el metodo POST
@@ -437,7 +448,6 @@ $(document).ready(function() {
         },
         
 
-        
         "columns":[
             {"data": "rap_id"},        
             {"data": "competencia"},
@@ -445,7 +455,8 @@ $(document).ready(function() {
             {"data": "tipo_resultado"},
             {"data": "fecha_inicio"},
             {"data": "fecha_fin"},
-            {data: "estado",
+            {data: "estado"
+            ,
             render:function(data, type, row){
            
                 if (type === 'display'){
@@ -474,7 +485,8 @@ $(document).ready(function() {
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json" 
         },
-        dom: 'Bfrtip',
+        responsive: "true",
+        dom: '<"top"Bf>rt<"bottom"lpi><"clear">',
         buttons: [
             // {
             //     extend: 'excelHtml5',
@@ -593,4 +605,5 @@ $(document).ready(function() {
 
 
     });
+
 

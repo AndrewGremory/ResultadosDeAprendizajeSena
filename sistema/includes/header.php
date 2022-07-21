@@ -115,12 +115,12 @@ $ficha = $resultado->fetchAll(PDO::FETCH_ASSOC);
                             </nav>
                         </div>
 
-                        <div class="sb-sidenav-menu-heading">Acceso rapido</div>
+                        <!-- <div class="sb-sidenav-menu-heading">Acceso rapido</div>
 
                         <a class="nav-link" href="estadisticas.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Estadisticas
-                        </a>
+                        </a> -->
 
                     </div>
                 </div>

@@ -26,39 +26,50 @@
                     <br>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>tipo programa</th>
-                            <th>Nombre programa</th>
-                            <th>Lider de ficha</th>
                             <?php 
                                 if ($_SESSION['rol_name'] == 'administrador' ){
                                 ?>
+                            <th>Id</th>
+                            <th>tipo programa</th>
+                            <th>Nombre programa</th>
+                            <th>Lider de ficha</th>                      
                             <th>Administrar</th>
                             <th>Editar</th>
+                            <th>Progreso</th>
                             <?php
-                                } else{?>
-                                <th>Administrar</th>
-
-
+                            } else{?>
+                            <th>Id</th>
+                            <th>tipo programa</th>
+                            <th>Nombre programa</th>
+                            <th>Lider de ficha</th>                      
+                            <th>Administrar</th>
+                            <!-- <th>Editar</th> -->
+                            <th>Progreso</th>
                             <?php }?>
 
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                        <?php 
+                                if ($_SESSION['rol_name'] == 'administrador' ){
+                                ?>
                             <th>Id</th>
                             <th>tipo programa</th>
                             <th>Nombre programa</th>
-                            <th>Lider de ficha</th>
-                            <?php 
-                                if ($_SESSION['rol_name'] == 'administrador' ){
-                                ?>
+                            <th>Lider de ficha</th>                      
                             <th>Administrar</th>
                             <th>Editar</th>
+                            <th>Progreso</th>
                             <?php
-                                } else{?>
-                                <th>Administrar</th>
-
+                            } else{?>
+                            <th>Id</th>
+                            <th>tipo programa</th>
+                            <th>Nombre programa</th>
+                            <th>Lider de ficha</th>                      
+                            <th>Administrar</th>
+                            <!-- <th>Editar</th> -->
+                            <th>Progreso</th>
                             <?php }?>
 
                         </tr>

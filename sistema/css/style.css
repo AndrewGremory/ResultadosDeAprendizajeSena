@@ -10262,6 +10262,8 @@ body {
   background-color: #e9ecef;
 }
 
-p .seguimiento {
-  white-space: nowrap;
-}
+
+
+/* table>tbody>tr>td{
+  vertical-align: middle !important;
+} */
